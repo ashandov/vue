@@ -1,4 +1,4 @@
-# mediumclone_vie
+# my-app-01
 
 ## Project setup
 ```
