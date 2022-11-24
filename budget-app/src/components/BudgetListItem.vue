@@ -1,7 +1,9 @@
 <template>
   <div class="list-item" v-if="budget">
             <span class="budget-comment"> {{budget.comment}} </span>
-            <span class="budget-value"> {{budget.value}} </span>
+            <span class="budget-value" :class="[redClass]" > {{budget.value}} </span>
+            <i v-if="budget.type == 'INCOME'" class="el-icon-top"></i>
+            <i v-if="budget.type == 'OUTCOME'" class="el-icon-bottom"></i>
             <el-button type="danger" size="mini" @click="deleteBudget(budget.id)">Delete</el-button>
         </div>
 </template>
@@ -13,6 +15,13 @@ export default {
     budget: {
       type: Object,
       default: ()=>({})
+    }
+  },
+  computed:{
+    redClass(){
+      return{
+      'red': this.budget.type == 'OUTCOME'
+      }
     }
   },
   methods:{

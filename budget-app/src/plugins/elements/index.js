@@ -11,7 +11,9 @@ Input,
 Select,
 Option,
 Alert,
-Dialog
+Dialog,
+MessageBox,
+Icon
 } from 'element-ui';
 
 const elements = [
@@ -23,8 +25,12 @@ const elements = [
   Select,
   Option,
   Alert,
-  Dialog
+  Dialog,
+  Icon,
+
 ];
+
+Vue.prototype.$confirm = MessageBox.confirm
 
 locale.use(lang);
 
