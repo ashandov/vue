@@ -18,9 +18,9 @@ export default {
     TotalBalance,
     FormComponent
   },
-  created() { if(!Object.values(this.filteredList).lenght){
+  created() { if(!this.filteredList.lenght){
     console.log('init filter');
-    this.onFiltered();
+    Object.assign(this.filteredList,Object.values(this.list));
   }},
   computed:{
     totalBalance(){
@@ -44,26 +44,23 @@ export default {
         id: 2
       }
     },
-    filteredList :{}
+    filteredList :[]
   }),
   methods:{
 
-    onFiltered(value = 'all'){
-      console.log('init');
+    onFiltered(value='all'){
+      this.filteredList = {};
       switch(value){
-            case 'all':
-            this.filteredList = {}
+        case 'all':
             Object.assign(this.filteredList,this.list);
               break;
             case 'income':
-            this.filteredList = {}
             Object.assign(this.filteredList,Object.values(this.list).filter(x=>x.type=="INCOME"));
               break;
             case 'outcome':
-            this.filteredList = {}
             Object.assign(this.filteredList,Object.values(this.list).filter(x=>x.type=="OUTCOME"));
               break;
-          }
+         }
 
     },
     onListSorted(isAscending){

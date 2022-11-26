@@ -62,15 +62,15 @@ import BudgetListItem from './BudgetListItem.vue';
       methods:{
         onFiltered(value){
           switch(value){
-            case 'all':
-              this.$emit('onFiltered','all');
-              break;
-            case 'income':
-              this.$emit('onFiltered','income')
-              break;
-            case 'outcome':
-              this.$emit('onFiltered','outcome')
-              break;
+             case 'all':
+               this.$emit('onFiltered','all');
+               break;
+             case 'income':
+               this.$emit('onFiltered','income')
+               break;
+             case 'outcome':
+               this.$emit('onFiltered','outcome')
+               break;
           }
 
         },
