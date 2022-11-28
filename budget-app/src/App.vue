@@ -2,7 +2,7 @@
   <div id="app">
     <FormComponent @submitForm="onFormSubmit"/>
     <TotalBalance :total="totalBalance"/>
-    <BudgetList @isSorted="onListSorted" @onFiltered="onFiltered" :list="filteredList" @deleteBudget="onDeleteBudget"/>
+    <BudgetList @isSorted="onListSorted"  @onFiltered="onFiltered"  :list="filteredList" @deleteBudget="onDeleteBudget"/>
   </div>
 </template>
 
@@ -18,10 +18,9 @@ export default {
     TotalBalance,
     FormComponent
   },
-  created() { if(!this.filteredList.lenght){
-    console.log('init filter');
+  created() {
     Object.assign(this.filteredList,Object.values(this.list));
-  }},
+  },
   computed:{
     totalBalance(){
       return Object.values(this.filteredList).reduce((acc,item)=>
@@ -42,14 +41,27 @@ export default {
         value: -50,
         comment: "Some outcome comments",
         id: 2
+      },
+      3: {
+        type: 'INCOME',
+        value: 23,
+        comment: "Some outcome comments",
+        id: 2
+      },
+      4: {
+        type: 'OUTCOME',
+        value: -29,
+        comment: "Some outcome comments",
+        id: 2
       }
     },
-    filteredList :[]
+    filteredList :{}
   }),
   methods:{
 
     onFiltered(value='all'){
       this.filteredList = {};
+      console.log('filter hanlder');
       switch(value){
         case 'all':
             Object.assign(this.filteredList,this.list);
@@ -64,8 +76,8 @@ export default {
 
     },
     onListSorted(isAscending){
-      let sortedValue = isAscending? Object.values(this.filteredList).sort(x=>x.value) :  Object.values(this.filteredList).reverse(x=>x.value)
-      this.list = {}
+      let sortedValue = isAscending? Object.values(this.filteredList).sort((x,y)=>y.value - x.value) :  Object.values(this.filteredList).sort((x,y)=>x.value - y.value)
+      this.filteredList = {}
       Object.assign(this.filteredList,sortedValue);
     },
     onDeleteBudget(id){
@@ -78,6 +90,7 @@ export default {
       };
 
       this.$set(this.filteredList, newObj.id, newObj)
+      this.$set(this.list, newObj.id, newObj)
     }
   }
 }

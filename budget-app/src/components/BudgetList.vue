@@ -10,9 +10,9 @@
           <i v-if="isSorted & !isAscending" @click="onSorted" class="el-icon-caret-bottom"></i>
         </div>
         <div class="header_buttons">
-          <el-button size="small" :click="onFiltered()" round plain ><i class="el-icon-top"></i><i class="el-icon-bottom"></i></el-button>
-          <el-button size="small" :click="onFiltered('income')" round plain><i class="el-icon-top"></i></el-button>
-          <el-button size="small" :click="onFiltered('outcome')" round plain><i class="el-icon-bottom"></i></el-button>
+          <el-button size="small" @click="onFiltered()" round plain ><i class="el-icon-top"></i><i class="el-icon-bottom"></i></el-button>
+          <el-button size="small" @click="onFiltered('income')" round plain><i class="el-icon-top"></i></el-button>
+          <el-button size="small" @click="onFiltered('outcome')" round plain><i class="el-icon-bottom"></i></el-button>
         </div>
       </div>
     </template>
@@ -37,6 +37,7 @@
 import BudgetListItem from './BudgetListItem.vue';
   export default{
       name: "BudgetList",
+      emits:['onFiltered'],
       components:{
         BudgetListItem
       },
@@ -62,14 +63,14 @@ import BudgetListItem from './BudgetListItem.vue';
       methods:{
         onFiltered(value){
           switch(value){
-             case 'all':
-               this.$emit('onFiltered','all');
-               break;
              case 'income':
                this.$emit('onFiltered','income')
                break;
              case 'outcome':
                this.$emit('onFiltered','outcome')
+               break;
+             default :
+               this.$emit('onFiltered','all');
                break;
           }
 

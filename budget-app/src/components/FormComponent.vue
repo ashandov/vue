@@ -11,7 +11,7 @@
         <el-input v-model="formData.comment"/>
       </el-form-item>
       <el-form-item label="Value" prop="value">
-        <el-input v-model.number="formData.value"/>
+        <el-input v-model.number="formData.value" :min="0"/>
       </el-form-item>
       <el-button @click="onSubmit" type="primary">Submit</el-button>
     </el-form>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'FormComponent',
   data :()=>({
@@ -37,10 +38,21 @@ export default {
       value:[
         {required: true, message:'Please input value', trigger:'change'},
         {type: 'number', message:'Value must be a number', trigger:'change'},
+        { min: 0 , message: 'Length should be more than 0', trigger: 'blur' },
        ]
     }
   }),
   methods:{
+    validate(){},
+    validateBeforeSubmit()
+    {
+      if (this.value<=0){
+        return 'Value must be more than 0'
+      }
+      else{
+        return true
+      }
+    },
     onSubmit(){
       this.$refs.addItemForm.validate((valid)=>{
         if(valid){
