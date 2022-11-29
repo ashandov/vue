@@ -29,32 +29,7 @@ export default {
     }
   },
   data : ()=>({
-    list:{
-      1: {
-        type: 'INCOME',
-        value: 100,
-        comment: "Some comments",
-        id: 1
-      },
-      2: {
-        type: 'OUTCOME',
-        value: -50,
-        comment: "Some outcome comments",
-        id: 2
-      },
-      3: {
-        type: 'INCOME',
-        value: 23,
-        comment: "Some outcome comments",
-        id: 2
-      },
-      4: {
-        type: 'OUTCOME',
-        value: -29,
-        comment: "Some outcome comments",
-        id: 2
-      }
-    },
+   
     filteredList :{}
   }),
   methods:{

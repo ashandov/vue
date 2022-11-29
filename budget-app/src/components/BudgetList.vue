@@ -17,7 +17,7 @@
       </div>
     </template>
       <template v-if="!isEmpty">
-        <div v-for="(item, prop) in list" :key="prop">
+        <div v-for="(item, prop) in filteredList" :key="prop">
         <BudgetListItem :budget="item" @deleteBudget="onDeleteBudget"/>
       </div>
       <el-dialog title="Deleting of the budget" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
@@ -35,6 +35,8 @@
 
 <script>
 import BudgetListItem from './BudgetListItem.vue';
+import { mapGetters } from "vuex";
+
   export default{
       name: "BudgetList",
       emits:['onFiltered'],
@@ -42,6 +44,7 @@ import BudgetListItem from './BudgetListItem.vue';
         BudgetListItem
       },
       computed:{
+        ...mapGetters("budgets",["filteredList"]),
         isEmpty(){
           return !Object.keys(this.list).length
         }
