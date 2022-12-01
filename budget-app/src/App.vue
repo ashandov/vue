@@ -2,24 +2,24 @@
   <div id="app">
     <FormComponent @submitForm="onFormSubmit"/>
     <TotalBalance :total="totalBalance"/>
-    <BudgetList @isSorted="onListSorted"  @onFiltered="onFiltered"  :list="filteredList" @deleteBudget="onDeleteBudget"/>
+    <BudgetList @isSorted="onListSorted"/>
   </div>
 </template>
 
 <script>
-import BudgetList from '@/components/BudgetList.vue';
+// import BudgetList from '@/components/BudgetList.vue';
 import TotalBalance from '@/components/TotalBalance.vue';
 import FormComponent from '@/components/FormComponent.vue';
 
 export default {
   name: 'App',
   components: {
-    BudgetList,
+    // BudgetList,
     TotalBalance,
     FormComponent
   },
   created() {
-    Object.assign(this.filteredList,Object.values(this.list));
+    // Object.assign(this.filteredList,Object.values(this.list));
   },
   computed:{
     totalBalance(){
@@ -29,7 +29,7 @@ export default {
     }
   },
   data : ()=>({
-   
+
     filteredList :{}
   }),
   methods:{

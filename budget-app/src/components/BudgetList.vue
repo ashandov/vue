@@ -17,12 +17,12 @@
       </div>
     </template>
       <template v-if="!isEmpty">
-        <div v-for="(item, prop) in filteredList" :key="prop">
+        <div v-for="(item, prop) in [{abc: 'sdfsd'}]" :key="prop">
         <BudgetListItem :budget="item" @deleteBudget="onDeleteBudget"/>
       </div>
-      <el-dialog title="Deleting of the budget" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <el-dialog title="Deleting of the budget" :v-model="dialogVisible" width="30%" :before-close="handleClose">
               <span>Are u sure want to delete the budget?</span>
-              <span slot="footer" class="dialog-footer">
+              <span :v-slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">Cancel</el-button>
                 <el-button type="primary" @click="onConfirmatonOfDelete">Confirm</el-button>
               </span>
@@ -43,10 +43,13 @@ import { mapGetters } from "vuex";
       components:{
         BudgetListItem
       },
+      mounted(){
+        console.log(this.filteredList);
+      },
       computed:{
         ...mapGetters("budgets",["filteredList"]),
         isEmpty(){
-          return !Object.keys(this.list).length
+          return !Object.keys(this.filteredList).length
         }
       },
       props: {
@@ -64,19 +67,8 @@ import { mapGetters } from "vuex";
         isAscending: false
       }),
       methods:{
-        onFiltered(value){
-          switch(value){
-             case 'income':
-               this.$emit('onFiltered','income')
-               break;
-             case 'outcome':
-               this.$emit('onFiltered','outcome')
-               break;
-             default :
-               this.$emit('onFiltered','all');
-               break;
-          }
-
+        onFiltered(){
+          // this.filteredList(value)
         },
         onSorted(){
           if(!this.isSorted){

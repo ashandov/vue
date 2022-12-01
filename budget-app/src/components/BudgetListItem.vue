@@ -12,6 +12,9 @@
 
 export default {
   name:"BudgetListItem",
+  mounted(){
+        console.log(this.budget);
+  },
   props:{
     budget: {
       type: Object,
@@ -25,7 +28,7 @@ export default {
       }
     }
   },
-  methods:{
+  methods:{ 
         deleteBudget(id){
           this.$emit('deleteBudget',id);
         },
