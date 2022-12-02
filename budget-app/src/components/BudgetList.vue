@@ -35,7 +35,7 @@
 
 <script>
 import BudgetListItem from './BudgetListItem.vue';
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
   export default{
       name: "BudgetList",
@@ -67,19 +67,9 @@ import { mapGetters } from "vuex";
         isAscending: false
       }),
       methods:{
-        onFiltered(value){
-          switch(value){
-             case 'income':
-               this.$emit('onFiltered','income')
-               break;
-             case 'outcome':
-               this.$emit('onFiltered','outcome')
-               break;
-             default :
-               this.$emit('onFiltered','all');
-               break;
-          }
-
+        ...mapActions("budgets",["filterList"]),
+        onFiltered(param){
+          this.filterList(param);
         },
         onSorted(){
           if(!this.isSorted){

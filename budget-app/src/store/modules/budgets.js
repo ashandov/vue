@@ -58,7 +58,18 @@ const budgets = {
     },
     deleteBudget({commit}, id){
       commit("DELETE_BUDGET",id)
-    }
+    },
+    filterList: ({list},filter) => {
+      console.log(list,filter)
+      switch(filter){
+        case 'income':
+            return Object.values(list).filter(x=>x.type=="INCOME");
+        case 'outcome':
+            return Object.values(list).filter(x=>x.type=="OUTCOME");
+        default:
+            return list;
+         }
+      },
   }
 }
 
