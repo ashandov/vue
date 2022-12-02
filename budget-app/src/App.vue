@@ -18,9 +18,6 @@ export default {
     TotalBalance,
     FormComponent
   },
-  created() {
-    Object.assign(this.filteredList,Object.values(this.list));
-  },
   computed:{
     totalBalance(){
       return Object.values(this.filteredList).reduce((acc,item)=>
@@ -29,7 +26,7 @@ export default {
     }
   },
   data : ()=>({
-   
+
     filteredList :{}
   }),
   methods:{

@@ -5,14 +5,14 @@
       <div class="card-header">
         <div>
           <span>{{header}}</span>
-          <i v-if="!isSorted" @click="onSorted" class="el-icon-d-caret"></i>
-          <i v-if="isSorted & isAscending" @click="onSorted" class="el-icon-caret-top"></i>
-          <i v-if="isSorted & !isAscending" @click="onSorted" class="el-icon-caret-bottom"></i>
+          <el-icon  v-if="!isSorted" @click="onSorted" ><DCaret /></el-icon>
+          <el-icon  v-if="isSorted & isAscending" @click="onSorted"><CaretBottom /></el-icon>
+          <el-icon v-if="isSorted & !isAscending" @click="onSorted"><CaretBottom /></el-icon>
         </div>
         <div class="header_buttons">
-          <el-button size="small" @click="onFiltered()" round plain ><i class="el-icon-top"></i><i class="el-icon-bottom"></i></el-button>
-          <el-button size="small" @click="onFiltered('income')" round plain><i class="el-icon-top"></i></el-button>
-          <el-button size="small" @click="onFiltered('outcome')" round plain><i class="el-icon-bottom"></i></el-button>
+          <el-button size="small" @click="onFiltered()" round plain ><el-icon><Top /></el-icon><el-icon><Bottom /></el-icon></el-button>
+          <el-button size="small" @click="onFiltered('income')" round plain><el-icon><Top /></el-icon></el-button>
+          <el-button size="small" @click="onFiltered('outcome')" round plain><el-icon><Bottom /></el-icon></el-button>
         </div>
       </div>
     </template>
@@ -40,13 +40,16 @@ import { mapGetters } from "vuex";
   export default{
       name: "BudgetList",
       emits:['onFiltered'],
+      mounted(){
+        console.log(this.filteredList)
+      },
       components:{
         BudgetListItem
       },
       computed:{
         ...mapGetters("budgets",["filteredList"]),
         isEmpty(){
-          return !Object.keys(this.list).length
+          return !Object.keys(this.filteredList).length
         }
       },
       props: {

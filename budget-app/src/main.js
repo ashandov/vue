@@ -1,8 +1,15 @@
-import { createApp, Vue } from 'vue'
+import ElementPlus from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import 'element-plus/dist/index.css'
+import { createApp } from 'vue'
 import App from './App.vue'
-import './plugins/elements';
 import store from "./store";
 
-Vue.config.productionTip = false
 
-createApp(App).use(store).mount("#app")
+const app = createApp(App)
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
+
+app.use(store).use(ElementPlus).mount("#app");
