@@ -17,12 +17,12 @@
       </div>
     </template>
       <template v-if="!isEmpty">
-        <div v-for="(item, prop) in filteredList" :key="prop">
+        <div v-for="(item, prop) in budgetList" :key="prop">
         <BudgetListItem :budget="item" @deleteBudget="onDeleteBudget"/>
       </div>
-      <el-dialog title="Deleting of the budget" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <el-dialog title="Deleting of the budget" :v-model="dialogVisible" width="30%" :before-close="handleClose">
               <span>Are u sure want to delete the budget?</span>
-              <span slot="footer" class="dialog-footer">
+              <span :v-slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">Cancel</el-button>
                 <el-button type="primary" @click="onConfirmatonOfDelete">Confirm</el-button>
               </span>
@@ -41,15 +41,17 @@ import { mapActions, mapGetters } from "vuex";
       name: "BudgetList",
       emits:['onFiltered'],
       mounted(){
-        console.log(this.filteredList)
+        console.log('On mounted');
+        this.filterList();
       },
       components:{
         BudgetListItem
       },
       computed:{
-        ...mapGetters("budgets",["filteredList"]),
+        ...mapGetters("budgets",["budgetList"]),
         isEmpty(){
-          return !Object.keys(this.filteredList).length
+          console.log(this.budgetList == {})
+          return this?.budgetList && !Object.keys(this?.budgetList).length
         }
       },
       props: {

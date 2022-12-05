@@ -25,21 +25,12 @@ const budgets = {
         value: -29,
         comment: "Some outcome comments",
         id: 2
-      }
+      },
+      filteredList:{}
     },
   },
   getters:{
-    budgetList: ({list})=> Object.values(list),
-    filteredList: ({list},filter) => {
-      switch(filter){
-        case 'income':
-            return Object.values(list).filter(x=>x.type=="INCOME");
-        case 'outcome':
-            return Object.values(list).filter(x=>x.type=="OUTCOME");
-        default:
-            return list;
-         }
-      },
+    budgetList: ({filteredLists})=> Object.values(filteredLists),
     sortedList: ({list}, isAscending)=>{
       return isAscending? Object.values(list).sort((x,y)=>y.value - x.value) :  Object.values(list).sort((x,y)=>x.value - y.value)
     }
@@ -50,6 +41,21 @@ const budgets = {
     },
     DELETE_BUDGET(state,id){
      delete state.list[id];
+    },
+    FILTER_BUDGET(state, filter){
+      console.log('filtering')
+      state.filtered = {};
+      switch(filter){
+        case 'income':
+          Object.assign(state.filtered,Object.values(state.list).filter(x=>x.type=="INCOME"));
+          break;
+        case 'outcome':
+          Object.assign(state.filtered,Object.values(state.list).filter(x=>x.type=="OUTCOME"));
+          break;
+        default:
+          Object.assign(state.filtered,state.list);
+          break;
+         }
     }
   },
   actions:{
@@ -59,16 +65,8 @@ const budgets = {
     deleteBudget({commit}, id){
       commit("DELETE_BUDGET",id)
     },
-    filterList: ({list},filter) => {
-      console.log(list,filter)
-      switch(filter){
-        case 'income':
-            return Object.values(list).filter(x=>x.type=="INCOME");
-        case 'outcome':
-            return Object.values(list).filter(x=>x.type=="OUTCOME");
-        default:
-            return list;
-         }
+    filterList: ({commit},filter) => {
+      commit("FILTER_BUDGET",filter)
       },
   }
 }
